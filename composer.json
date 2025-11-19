@@ -52,16 +52,7 @@
       "phpstan/extension-installer": true
     }
   },
-  "extra": {
-    "laravel": {
-      "providers": [
-        "KGolinski\\TurboEnum\\TurboEnumServiceProvider"
-      ],
-      "aliases": {
-        "TurboEnum": "KGolinski\\TurboEnum\\Facades\\TurboEnum"
-      }
-    }
-  },
-  "minimum-stability": "dev",
+  "extra": {},
+  "minimum-stability": "stable",
   "prefer-stable": true
 }
