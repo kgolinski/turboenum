@@ -10,7 +10,7 @@ trait TurboEnum
 {
     public static function names(): array
     {
-        return array_map(fn($c) => $c->name, static::cases());
+        return array_map(fn ($c) => $c->name, static::cases());
     }
 
     public static function values(): ?array
@@ -18,10 +18,10 @@ trait TurboEnum
         $cases = static::cases();
         // @phpstan-ignore instanceof.alwaysTrue
         if (! ($cases[0] instanceof BackedEnum)) {
-            throw new \BadMethodCallException(static::class . ' is not a backed enum');
+            throw new \BadMethodCallException(static::class.' is not a backed enum');
         }
 
-        return array_map(fn($c) => $c->value, $cases);
+        return array_map(fn ($c) => $c->value, $cases);
     }
 
     public static function hasName(string $name): bool
@@ -41,7 +41,7 @@ trait TurboEnum
     public static function fromName(string $name): self
     {
         if (! self::hasName($name)) {
-            throw new \InvalidArgumentException(static::class . " has no name: $name");
+            throw new \InvalidArgumentException(static::class." has no name: $name");
         }
 
         return constant("self::$name");
@@ -51,7 +51,7 @@ trait TurboEnum
     {
         settype($value, gettype(static::values()[0]));
         if (! self::hasValue($value)) {
-            throw new \InvalidArgumentException(static::class . " has no value: $value");
+            throw new \InvalidArgumentException(static::class." has no value: $value");
         }
 
         return self::from($value);
@@ -77,12 +77,12 @@ trait TurboEnum
         $cases = static::cases();
         // @phpstan-ignore instanceof.alwaysTrue (trait is used by both backed and non-backed enums)
         $exceptions = $cases[0] instanceof BackedEnum
-            ? array_map(fn($e) => $e->value, $exceptions)
-            : array_map(fn($e) => $e->name, $exceptions);
+            ? array_map(fn ($e) => $e->value, $exceptions)
+            : array_map(fn ($e) => $e->name, $exceptions);
         // @phpstan-ignore instanceof.alwaysTrue (trait is used by both backed and non-backed enums)
         $filteredCases = $cases[0] instanceof BackedEnum
-            ? array_filter($cases, fn($case) => ! in_array($case->value, $exceptions))
-            : array_filter($cases, fn($case) => ! in_array($case->name, $exceptions));
+            ? array_filter($cases, fn ($case) => ! in_array($case->value, $exceptions))
+            : array_filter($cases, fn ($case) => ! in_array($case->name, $exceptions));
 
         return $filteredCases[array_rand($filteredCases)];
     }
